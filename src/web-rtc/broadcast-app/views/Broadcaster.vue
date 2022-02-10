@@ -35,7 +35,6 @@
 
   const startStream = () => {
     startStreamClicked.value = true
-    
   }
 </script>
 

@@ -16,7 +16,6 @@ const serviceAgent = new RTW(props.serviceParams)
 serviceAgent.receive(({ RTW }) => {
   if (typeof RTW === 'undefined') return
   const { EVENT, SOCKET_ID } = RTW
-  console.log(EVENT)
   switch (EVENT) {
     case 'STREAMREQUEST':
       handleStreamRequest(SOCKET_ID)
@@ -27,7 +26,6 @@ serviceAgent.receive(({ RTW }) => {
 const handleStreamRequest = async id => {
   const peerConnection = new RTCPeerConnection(PEER_CONNECTION_CONFIG)
   peerConnections.value[id] = peerConnection
-  console.log(peerConnections.value)
   localStream.value.getTracks().forEach(track => {
     peerConnection.addTrack(track, localStream.value)
   })
@@ -60,7 +58,7 @@ const localStreamInit = async () => {
 
 const localStreamStop = () => {
   localStream.value.getTracks().forEach(track => {
-    track.stop();
+    track.stop()
   })
 }
 

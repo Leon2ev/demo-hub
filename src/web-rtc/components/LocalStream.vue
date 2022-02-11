@@ -21,10 +21,6 @@ serviceAgent.receive(({ RTW }) => {
     case 'STREAMREQUEST':
       handleStreamRequest(SOCKET_ID)
       break
-    case 'DISCONNECTED':
-      console.log('disc')
-      handleDisconnectedPeer(SOCKET_ID)
-      break
   }
 })
 
@@ -50,13 +46,6 @@ const handleStreamRequest = async id => {
   }
 }
 
-const handleDisconnectedPeer = id => {
-  console.log(id)
-  peerConnections.value[id].close()
-  delete peerConnections.value[id]
-  console.log(peerConnections.value)
-}
-
 const localStreamInit = async () => {
   const constraints = {
     video: true,
@@ -75,15 +64,20 @@ const localStreamStop = () => {
   })
 }
 
-SOCKET.on("answer", (id, description) => {
+SOCKET.on('answer', (id, description) => {
   peerConnections.value[id].setRemoteDescription(description)
 })
 
-SOCKET.on("candidate", (id, candidate) => {
+SOCKET.on('candidate', (id, candidate) => {
   peerConnections.value[id].addIceCandidate(new RTCIceCandidate(candidate))
 })
 
-window.onbeforeunload = () => {
+SOCKET.on('disconnectPeer', id => {
+  peerConnections[id].close()
+  delete peerConnections[id]
+})
+
+window.onunload = window.onbeforeunload = () => {
   SOCKET.close()
 }
 

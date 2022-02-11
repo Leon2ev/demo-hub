@@ -34,14 +34,6 @@ const sendStreamRequest = () => {
   })
 }
 
-const sendDisconnected = () => {
-  serviceAgent.send({
-    event: 'DISCONNECTED',
-    socket_id: SOCKET.id,
-    camera_map_id: cameraMapId.value
-  })
-}
-
 watch(() =>
   cameraMapId.value, (newVal, oldVal) => {
     if (newVal === oldVal) return
@@ -79,10 +71,9 @@ SOCKET.on('candidate', (id, candidate) => {
   peerConnection.value.addIceCandidate(new RTCIceCandidate(candidate))
 })
 
-window.onbeforeunload = () => {
-  sendDisconnected()
-  SOCKET.close()
+window.onunload = window.onbeforeunload = () => {
   peerConnection.value.close()
+  SOCKET.close()
 }
 
 const router = useRouter()

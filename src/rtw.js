@@ -2,6 +2,7 @@ export class RTW {
   #serviceUrl;
   #token;
   #ghostId;
+  #restartStream;
 
   /**
    * 
@@ -16,10 +17,12 @@ export class RTW {
     serviceUrl,
     token,
     ghostId,
+    restartStream = true
   }) {
     this.#serviceUrl = serviceUrl;
     this.#token = token;
     this.#ghostId = ghostId;
+    this.#restartStream = restartStream;
   }
 
   get token() {
@@ -101,6 +104,7 @@ export class RTW {
 
       if (done) {
         console.log('Stream complete');
+        if (this.#restartStream) this.#streamInit();
         break;
       }
 

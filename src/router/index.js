@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { hiveRoutes } from '@/hive/routes'
 import { webRtcRoutes } from '@/web-rtc/routes'
 import { useAuthStore } from '@/hive/auth/store'
 import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
 
 const routes = [
   {
@@ -10,14 +10,7 @@ const routes = [
     name: 'home',
     component: Home
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login,
-    meta: {
-      layout: 'AppLayoutAuth'
-    }
-  },
+  ...hiveRoutes,
   ...webRtcRoutes
 ]
 

@@ -1,6 +1,6 @@
 <script setup>
-  import AppTopBar from './AppTopBar.vue'
-  import AppBreadcrumbs from './AppBreadcrumbs.vue'
+  import AppTopBar from '@/components/AppTopBar.vue'
+  import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue'
 </script>
 
 <template>

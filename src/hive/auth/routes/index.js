@@ -1,4 +1,5 @@
 import Login from '@/hive/auth/views/Login.vue'
+import AuthLayout from '@/hive/auth/layouts/AuthLayout.vue'
 
 export const hiveAuthRoutes = [
   {
@@ -6,7 +7,7 @@ export const hiveAuthRoutes = [
     name: 'login',
     component: Login,
     meta: {
-      layout: 'AppLayoutAuth'
+      layout: AuthLayout
     }
   }
 ]

@@ -1,24 +1,10 @@
 <script setup>
-  import AppLayoutDefault from './AppLayoutDefault.vue'
-  import { markRaw, ref, watch } from 'vue'
+  import { computed } from 'vue'
   import { useRoute } from 'vue-router'
+  import AppLayoutDefault from './AppLayoutDefault.vue'
 
-  const layout = ref()
   const route = useRoute()
-
-  watch(
-    () => route.meta?.layout,
-    async (metaLayout) => {
-      try {
-        const component =
-          metaLayout && (await import(/* @vite-ignore */ `@/layouts/${metaLayout}.vue`))
-        layout.value = markRaw(component?.default || AppLayoutDefault)
-      } catch (e) {
-        layout.value = markRaw(AppLayoutDefault)
-      }
-    },
-    { immediate: true }
-  )
+  const layout = computed(() => route.meta.layout || AppLayoutDefault)
 </script>
 
 <template>
